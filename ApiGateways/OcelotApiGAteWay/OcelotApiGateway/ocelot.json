@@ -1,0 +1,49 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/auth/{everything}", // Backend services url that will be called by  the ApI gateway
+      "DownstreamScheme": "Https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7116
+        }
+      ],
+      "UpstreamPathTemplate": "/auth/{everything}", // Api gateway url that will be called by the client 
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post"
+      ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/user/{everything}", // Backend services url that will be called by  the ApI gateway
+      "DownstreamScheme": "Https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7116
+        }
+      ],
+      //Authentication
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "MyShopKey@123456789"
+
+      },
+      //Authorization
+      "RouteClaimsRequirement": {
+        "Roles": "Admin"
+      },
+      "UpstreamPathTemplate": "/user/{everything}", // Api gateway url that will be called by the client 
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put"
+      ]
+    }
+
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "https://localhost:7002"
+  }
+}
